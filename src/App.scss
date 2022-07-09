@@ -1,0 +1,130 @@
+$secondaryTextColor: rgba(73, 73, 73, 0.658);
+$commonGap: 20px;
+$softBorder: 1px solid rgba(0, 0, 0, 0.363);
+
+h3 a {
+  color: $secondaryTextColor;
+}
+
+.Job h3 {
+  margin-bottom: 0;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.loading {
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  transform: scale(5);
+}
+
+.App {
+  padding: 0 10px;
+  padding: $commonGap 0px;
+  margin: 0px auto;
+  width: 1004px;
+}
+
+.SearchBar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns:  2fr 2fr 150px ;
+  gap: 10px;
+}
+
+.JobListing {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: $commonGap;
+}
+
+.Job {
+  padding: $commonGap;
+  border: $softBorder;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Job + .Job {
+  margin-top: $commonGap;
+}
+
+.Job.selected {
+  border-color: rgb(0, 0, 151);
+}
+
+.subtitle {
+  font-weight: 400;
+  color: $secondaryTextColor;
+}
+
+.jobDate {
+  font: 400 12px sans-serif;
+  color: $secondaryTextColor;
+  margin-top: $commonGap;
+}
+
+.JobListHeader {
+  padding: $commonGap;
+  font-weight: 400;
+}
+
+.order button {
+  background: none;
+  border: none;
+  color: #069;
+  cursor: pointer;
+}
+
+.order button:not(.active) {
+  color: rgb(153, 153, 153);
+}
+
+.order button:not(.active):hover {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.order button.active {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+hr {
+  margin: $commonGap 0;
+}
+
+.SourceCode {
+  position: fixed;
+  bottom: $commonGap;
+  right: $commonGap;
+  border-radius: 9999px;
+  background-color: white;
+  box-shadow: 0 1px 3px 3px white;
+}
+
+@media only screen and (max-width: 1024px) {
+  .App {
+    width: calc(100% - #{$commonGap});
+  }
+}
+
+iframe {
+  pointer-events: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
