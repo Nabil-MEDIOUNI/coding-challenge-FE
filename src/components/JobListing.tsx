@@ -1,14 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext, useState } from 'react';
 
-import JobList from "./JobList";
+import JobList from './JobList';
 
 import {
   JobInterface,
   CityInterface,
   JobInfoHandlersInterface,
-} from "../interfaces/jobInterfaces";
+} from '../interfaces/jobInterfaces';
 
-import Context from "../Context";
+import Context from '../Context';
 
 interface Props {
   data: {
@@ -16,7 +16,7 @@ interface Props {
   };
 }
 const JobListing = (props: Props): JSX.Element => {
-  const [selectedJobId, setSelectedJobId] = useState("");
+  const [selectedJobId, setSelectedJobId] = useState('');
   const jobsInfo: JobInfoHandlersInterface = useContext(Context).jobsInfo;
 
   const handleSelectedJobIdChange = (newSelectedJobId: string): void => {
@@ -31,7 +31,9 @@ const JobListing = (props: Props): JSX.Element => {
     ) {
       return job;
     }
+
     let count = 0;
+
     job.cities.map((city: CityInterface) => {
       if (
         city.country.name
@@ -42,15 +44,18 @@ const JobListing = (props: Props): JSX.Element => {
       }
       return city;
     });
+
     if (count === 0) {
       return job;
     }
+
     jobs.push(job);
+
     return job;
   });
 
   const selectedJob: JobInterface = jobs.find(
-    (job) => job.id === selectedJobId
+    (job) => job.id === selectedJobId,
   )!;
 
   return (

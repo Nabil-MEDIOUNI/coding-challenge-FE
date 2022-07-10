@@ -1,4 +1,4 @@
-import { JobInterface, CityInterface } from "../interfaces/jobInterfaces";
+import { JobInterface, CityInterface } from '../interfaces/jobInterfaces';
 
 interface Props {
   job: JobInterface;
@@ -10,7 +10,7 @@ const JobCard = (props: Props): JSX.Element => {
   const job = props.job;
   const company = job.company;
 
-  var citiesNames: string = "";
+  var citiesNames: string = '';
   job.cities.map((city: CityInterface) => {
     citiesNames += `${city.name}, ${city.country.name}. `;
     return city;
@@ -20,9 +20,9 @@ const JobCard = (props: Props): JSX.Element => {
   const millisThen: number = new Date(job.createdAt).getTime();
   const secondsSinceThen: number = Math.round((millisNow - millisThen) / 1000);
 
-  var createdAgo: string = "";
+  var createdAgo: string = '';
   if (secondsSinceThen < 1) {
-    createdAgo = "just now";
+    createdAgo = 'just now';
   } else if (secondsSinceThen < 60) {
     createdAgo = `${secondsSinceThen} seconds ago`;
   } else if (secondsSinceThen < 60 * 60) {
@@ -33,17 +33,17 @@ const JobCard = (props: Props): JSX.Element => {
     createdAgo = `${Math.round(secondsSinceThen / (60 * 60 * 24))} days ago`;
   } else if (secondsSinceThen < 60 * 60 * 24 * 365) {
     createdAgo = `${Math.round(
-      secondsSinceThen / (60 * 60 * 24 * 30)
+      secondsSinceThen / (60 * 60 * 24 * 30),
     )} months ago`;
   } else {
     createdAgo = `${Math.round(
-      secondsSinceThen / (60 * 60 * 24 * 365)
+      secondsSinceThen / (60 * 60 * 24 * 365),
     )} years ago`;
   }
 
   return (
     <div
-      className={`Job ${props.selected ? "selected" : ""}`}
+      className={`Job ${props.selected ? 'selected' : ''}`}
       onClick={() => {
         props.onSelectedJobIdChange(job.id);
       }}

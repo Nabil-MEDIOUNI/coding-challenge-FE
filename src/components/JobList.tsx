@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Job from "./JobCard";
-import JobListHeader from "./JobListHeader";
+import Job from './JobCard';
+import JobListHeader from './JobListHeader';
 
-import { JobInterface } from "../interfaces/jobInterfaces";
+import { JobInterface } from '../interfaces/jobInterfaces';
 
 interface Props {
   onSelectedJobIdChange: (jobId: string) => any;
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const JobList = (props: Props): JSX.Element => {
-  const [orderBy, setOrderBy] = useState("title");
+  const [orderBy, setOrderBy] = useState('title');
 
   const handleSetOrderByChange = (newOrderBy: string): void => {
     setOrderBy(newOrderBy);
@@ -27,12 +27,12 @@ const JobList = (props: Props): JSX.Element => {
   };
 
   switch (orderBy) {
-    case "title":
+    case 'title':
       orderFunc = (a, b) => {
         return a.title > b.title ? 1 : -1;
       };
       break;
-    case "date":
+    case 'date':
       orderFunc = (a, b) => {
         return a.createdAt < b.createdAt ? 1 : -1;
       };
@@ -52,7 +52,7 @@ const JobList = (props: Props): JSX.Element => {
         onSelectedJobIdChange={props.onSelectedJobIdChange}
         job={job}
         selected={selectedBool}
-      />
+      />,
     );
     return job;
   });

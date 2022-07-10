@@ -1,17 +1,15 @@
-import { useState } from "react";
-import ApolloClient, { gql, OperationVariables } from "apollo-boost";
-import { ApolloProvider, Query, QueryResult } from "react-apollo";
+import { useState } from 'react';
+import ApolloClient, { gql, OperationVariables } from 'apollo-boost';
+import { ApolloProvider, Query, QueryResult } from 'react-apollo';
 
-import { SyncOutlined } from "@ant-design/icons";
+import { SyncOutlined } from '@ant-design/icons';
 
-import SearchBar from "./components/SearchBar";
-import JobListing from "./components/JobListing";
+import SearchBar from './components/SearchBar';
+import JobListing from './components/JobListing';
 
-import { JobInterface } from "./interfaces/jobInterfaces";
+import Context from './Context';
 
-import Context from "./Context";
-
-import "./App.scss";
+import './App.scss';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_URL,
@@ -52,38 +50,24 @@ const JobsQuery = (): JSX.Element => {
               <SyncOutlined spin />
             </div>
           );
+
         if (error) return <p>Error!</p>;
 
-        const allTitles: { value: string }[] = data.jobs.map(
-          (job: JobInterface) => {
-            return { value: job.title };
-          }
-        );
+        const allJobsTitle = data.jobs.map((job: any, i: number) => {
+          return { key: i, value: job.title };
+        });
 
-        const jobsTitles = allTitles.filter(
-          (title, index) =>
-            allTitles.findIndex(
-              (t) => t.value.toUpperCase() === title.value.toUpperCase()
-            ) === index
-        );
-
-        const allCountries: { value: string }[] = data.countries.map(
-          (country: { name: string }) => {
-            return { value: country.name };
-          }
-        );
-        const jobsCountries = allCountries.filter(
-          (country, index) =>
-            allCountries.findIndex(
-              (t) => t.value.toUpperCase() === country.value.toUpperCase()
-            ) === index
+        const allCountriesName = data.countries.map(
+          (country: any, i: number) => {
+            return { key: i, value: country.name };
+          },
         );
 
         return (
           <>
             <SearchBar
-              titleOptions={jobsTitles}
-              countryOptions={jobsCountries}
+              allJobsTitle={allJobsTitle}
+              allCountriesName={allCountriesName}
             />
             <hr />
             <JobListing data={data} />
@@ -95,8 +79,8 @@ const JobsQuery = (): JSX.Element => {
 };
 
 const App = (): JSX.Element => {
-  const [jobsTitle, setJobsTitle] = useState("");
-  const [jobsLoc, setJobsLoc] = useState("");
+  const [jobsTitle, setJobsTitle] = useState('');
+  const [jobsLoc, setJobsLoc] = useState('');
 
   const handleJobTitleChange = (newJobTitle: string): void => {
     setJobsTitle(newJobTitle);
