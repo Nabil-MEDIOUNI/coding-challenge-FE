@@ -1,68 +1,90 @@
-## Task
-Your task is to implement a UI for the given jobs data:
-1. Rendering the list of jobs as individual cards showing the most important information (Title, Company, City, Investors)
-1. A search interface at the top that will filter down the list with the following elements:
-   1. Search box for Job Title
-   1. Filter for Company
-   1. Filter for City
-   1. *Filter by Investors (only jobs from companies with these investors)
-1. A reset button that removes any applied filters
+<h1 align="center">
+  Job Search
+</h1>
 
-(Tasks items with **"*" are optional**)
+Intro Description
 
-We’re not giving you any restrictions in how it should look. You can take inspiration from existing job platforms or just implement your own design&layout. The focus is on the search element + list view, no need to implement a complex page layout.
+# Essential rules
 
-You’re also free to use any framework and styling library that you prefer. Just FYI our stack at Talentspace ist Ant Design with styled-components.
+- Code must be linted and formatted
+- Do not leave irrelevant trailing comments or commented code blocks
+- Do not leave unused files or assets
+- No inline style (except for less common instances when style linked to runtime logic)
+- Image sizes must be web friendly (max 300kb unless rendered in a special vision mode)
+- Don't use `eslint-disable` nor change config files for linting and formatting (except for rare agreed exceptions)
+- Code must be pushed whenever possible, at least once every worked days
+- Make sure code is tested both in dev and build mode before submitting to CI/CD `npm run serve`
+- Make sure metadata is nice and sweet (favicon, SEO titles/desc, path names...etc.)
+- Path names must be SEO friendly, sluggified localized when needed
+- A website is considered incomplete as long as it's not W3C compliant (or almost compliant). Use the W3C validator.
+- A website isn't considered efficient until at least Lighthouse says so (perf, SEO, image sizes...etc.).
 
-## Overview
+# Setup
 
-This project uses a `docker-compose` file to bundle the React app with a Postgres database and [Hasura GraphQL Engine](https://hasura.io/).
-Upon start the database will be initialized with tables `jobs`, `companies`, `investors` and `company_investors` and seeded with data.
+## Prerequisites
 
-## How to run the project
+- Make sure you have an up-to-date NodeJS version (an LTS)
+- Prefer Unix-based environments to Windows
+- Preferably VSCode with recommended extensions supplied in `.vscode/extensions`
 
-There are two ways how to run the project:
+## Website setup
 
-1.) Using only the docker-compose file: 
-- `docker-compose up --build`
-- This will start the React app on port 8000 and Hasura on port 8080
+Start website in developer mode
 
+```shell
+cd website-repo-slug-name/
+yarn start
+```
 
-2.) Running a local version of the React app alongside the docker container 
-- `docker-compose up -d --build`
-- `yarn install`
-- `yarn start`
-- This will start the local React app on port 3000 and Hasura on port 8080
+**Important note** When adding dependencies or updating them, use `yarn` and not `npm`
 
-## Description of commands
+# Generating conventional code templates
 
-### `docker-compose up -d --build`
+## Adding a component
 
-Builds and starts the containers for the React app, Postgres database and Hasura Console alongside each other.
-It can take a few seconds after the containers have started until the Database is fully initialized and seeded.
-* Open [http://localhost:8000](http://localhost:8000) for the **React app**
-* Open [http://localhost:8080](http://localhost:8080) for the **Hasura Console**
+### Page component
 
-### `yarn start`
+- `SomeComponent.tsx`: Standard component file
+- `SomeComponent.css`: Standard `.css` style file for the component imported with the component implementation file
+- `SomeComponent.stories.mdx`: MDX-based Storybook file for the component. Will be found in Storybook under the page group
 
-Runs the app in the local development mode. If you prefer this to the dockerized React app. <br />
-Open [http://localhost:3000](http://localhost:3000) to view the **React app**
+### Shared component
 
-You **still have to run the docker containers** at the same time, to make the Database + Hasura Console available.
+- `SomeWidget.tsx`: Standard component file
+- `SomeWidget.css`: Standard `.css` style file for the component imported with the component implementation file
+- `SomeWidget.stories.mdx`: MDX-based Storybook file for the component. Will be found in Storybook under the **UIKit** group
 
-## Executing commands in the React container (e.g. for adding packages)
-If you want to add a new package, you can do this in the project. But it won't automatically be available in the React container without rebuilding.
+# Folder structure
 
-To make an added package available without rebuilding you can run yarn install directly in the container:
+    .
+    ├── public
+    ├────── index.html
+    .
+    .
+    .
+    ├── src
+    ├────── assets
+    ├────── components
+    ├── package.json => WARNING: You must inform project manager on the project group chat when installing extra-dependencies or updating ones
+    ├──
+    .
+    .
+    .
+    ├──
+    └── ...
 
-`docker exec -it coding-challenge yarn install`
+# Linting and formatting
 
-## About Hasura GraphQL Engine
+- Uses ESLint and Prettier working in pair together
+- Linting and formatting are enforced (won't compile unless addressed)
+- Formatting/Linting is automatically processed on saving files. If linting errors remain unresolved, commit won't go through
+- In fact, linting and formatting tasks are also
+  installed as a pre-commit hook through Husky
 
-Hasura GraphQL Engine is a blazing-fast GraphQL server that gives you **instant, realtime GraphQL APIs over Postgres**, with [**webhook triggers**](event-triggers.md) on database events, and [**remote schemas**](remote-schemas.md) for business logic.
+# Solution
 
-Hasura helps you build GraphQL apps backed by Postgres or incrementally move to GraphQL for existing applications using Postgres.
+My machine is running on windows, and I'm facing a trouble running Docker so I couldn't use your API.
 
-Read more at [hasura.io](https://hasura.io) and the [docs](https://hasura.io/docs).
+so I had to improvise and search for a GraphQL API similar to yours: `https://api.graphql.jobs/`.
 
-
+I realize that filtering should be done with GraphQL inputs but the API I've found doesn't support that, it just filters countries. So I had to fetch all the data and filter on the client side.
